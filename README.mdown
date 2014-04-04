@@ -1,0 +1,210 @@
+FFFFUUUUUU
+==========
+
+DAFAQ IS THIS?
+--------------
+
+FFFFUUUUUU is my personal project build upon AOSP with some cherry-picks from CyanogenMod, AOSPA and SlimRoms projects.
+Hats off to them for these awesome features.
+
+I maintain this project for Nexus 4 (mako), Nexus 5 (hammerhead), Nexus 7 2013 Wi-Fi (flo) and Nexus 10 (manta).
+
+LICENSE
+-------
+
+<img src="https://raw.github.com/donghaomin/platform_manifest/biantai-4.4.2_r2/WTFPL.png">
+
+> Copyright (C) 2014 donghaomin <dhmcharles@gmail.com>
+> 
+> This work is free. You can redistribute it and/or modify it under the
+> terms of the Do What The Fuck You Want To Public License, Version 2,
+> as published by Sam Hocevar. See the COPYING file for more details.
+
+My work is distributed with [WTFPL(Do What the Fuck You Want to Public License)](https://raw.github.com/donghaomin/platform_manifest/biantai-4.4.2_r2/COPYING.WTFPL).
+
+__HOWEVER, YOU MUST__ follow the terms of respective license for the work cherry-picked from other projects.
+
+CONFIGURE ENVIRONMENT
+---------------------
+
+I don't like OpenJDK, so I use Oracle. But feel free to skip this.
+
+    sudo apt-get purge openjdk-\* icedtea-\* icedtea6-\*
+
+Get Oracle Java 6. __Don't try to be a smartass here, 6 is not outdated, and even the only fully working version.__
+
+    sudo add-apt-repository ppa:webupd8team/java
+    sudo apt-get update && sudo apt-get install oracle-java6-installer
+
+Then, for the dependencies, do this and maybe you should grab a cup of coffee.
+
+    sudo apt-get install git-core lzop ccache gnupg flex bison gperf build-essential zip curl zlib1g-dev zlib1g-dev:i386 libc6-dev lib32ncurses5 lib32z1 lib32bz2-1.0 lib32ncurses5-dev x11proto-core-dev libx11-dev:i386 libreadline6-dev:i386 lib32z-dev libgl1-mesa-glx:i386 libgl1-mesa-dev g++-multilib mingw32 tofrodos python python-markdown libxml2-utils xsltproc readline-common libreadline6-dev libreadline6 lib32readline-gplv2-dev libncurses5-dev lib32readline5 lib32readline6 libreadline-dev libreadline6-dev:i386 libreadline6:i386 bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev lib32bz2-dev libsdl1.2-dev libesd0-dev squashfs-tools pngcrush schedtool libwxgtk2.8-dev gcc g++ cpp gcc-4.8 g++-4.8
+
+When all finished,
+
+    sudo ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so.1 /usr/lib/i386-linux-gnu/libGL.so
+
+Done with dependencies, now let's get repo, a tool build on top of git by Google to manage git repos. And here, to download all Google's source.
+
+    mkdir ~/bin && curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo && chmod a+x ~/bin/repo
+
+Finally, add the path to your .bashrc and you're done.
+
+    echo "export PATH=${PATH}:~/bin" >> ~/.bashrc
+
+Annnnnd, the most exciting and boring part. Let's get the FFFFUUUUUU source code.
+
+Download FFFFUUUUUU source
+--------------------------
+
+I simply use a /android/ffffuuuuuu/ to keep the source. But whatever makes you happy :P
+
+    mkdir -p ~/android/ffffuuuuuu && cd $_
+
+Gimme the source!
+
+    repo init -u git@github.com:donghaomin/platform_manifest.git -b biantai-4.4.2_r2
+    repo sync -jN
+
+_A couple of notes here:_
+* If you don't have a github account and/or haven't set up SSH keys. You'll need to use https connections instead. __Both in the above repo init command and within the default.xml file you download after repo init__ Then do repo sync.
+* -jN, N is the number of parallel tasks mainly based on your connection speed.
+
+After a long long waiting. The mostest :) exciting and boring part. COMPILING BABY!!!1111!!
+
+Compile FFFFUUUUUU
+------------------
+
+This is quite dull actually, because well... make is pretty smart.
+
+    source build/envsetup.sh
+    lunch
+
+You'll see a list of devices. Let's say you want a flo build, so
+
+    14
+    make otapackage -jN
+
+Here, N depends on your PC specs and should be between 1 and 2 times the number of hardware threads of your PC.
+
+[OPTIONAL] Use ccache
+---------------------
+
+ccache can help reduce the build time (after first build).
+
+    echo "export USE_CCACHE=1" >> ~/.bashrc
+
+Spare a part of your disk for ccache. Here, N is the number of gigabyte you want to give ccache. 50-100G is suggested (by Google).
+
+    ~/android/ffffuuuuuu/prebuilts/misc/linux-x86/ccache/ccache -M NG
+
+HAVE FUN
+--------
+
+<img src="https://raw.github.com/donghaomin/platform_manifest/biantai-4.4.2_r2/HAVE_FUN.png">
+
+----------
+FFFFUUUUUU
+==========
+
+这尼玛都是啥?
+------------
+
+FFFFUUUUUU 是我的个人项目, 基于AOSP, 外加一些来自CyanogenMod, AOSPA和SlimRoms项目的cherry-pick.
+向他们实现的这些碉堡的特性脱帽致敬.
+
+我个人对这些设备进行维护: Nexus 4 (mako), Nexus 5 (hammerhead), Nexus 7 2013 Wi-Fi (flo) 和 Nexus 10 (manta).
+
+许可协议
+-------
+
+<img src="https://raw.github.com/donghaomin/platform_manifest/biantai-4.4.2_r2/WTFPL.png">
+
+> Copyright (C) 2014 donghaomin <dhmcharles@gmail.com>
+> 
+> This work is free. You can redistribute it and/or modify it under the
+> terms of the Do What The Fuck You Want To Public License, Version 2,
+> as published by Sam Hocevar. See the COPYING file for more details.
+
+我的工作全部以[WTFPL(你他妈的想干嘛就干嘛公共许可证)](https://raw.github.com/donghaomin/platform_manifest/biantai-4.4.2_r2/COPYING.WTFPL)发布.
+
+__但是, 你必须__ 遵守来自其他项目的cherry-pick各自的许可协议.
+
+配置环境
+-------
+
+我不喜欢OpenJDK, 因此我用Oracle的JDK. 但尽管跳过这一步.
+
+    sudo apt-get purge openjdk-\* icedtea-\* icedtea6-\*
+
+安装Oracle Java 6. __不要装逼耍小聪明, 6还没有过时, 他甚至还是目前唯一完全适配的版本.__
+
+    sudo add-apt-repository ppa:webupd8team/java
+    sudo apt-get update && sudo apt-get install oracle-java6-installer
+
+然后, 泡一杯茶, 开始装依赖们.
+
+    sudo apt-get install git-core lzop ccache gnupg flex bison gperf build-essential zip curl zlib1g-dev zlib1g-dev:i386 libc6-dev lib32ncurses5 lib32z1 lib32bz2-1.0 lib32ncurses5-dev x11proto-core-dev libx11-dev:i386 libreadline6-dev:i386 lib32z-dev libgl1-mesa-glx:i386 libgl1-mesa-dev g++-multilib mingw32 tofrodos python python-markdown libxml2-utils xsltproc readline-common libreadline6-dev libreadline6 lib32readline-gplv2-dev libncurses5-dev lib32readline5 lib32readline6 libreadline-dev libreadline6-dev:i386 libreadline6:i386 bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev lib32bz2-dev libsdl1.2-dev libesd0-dev squashfs-tools pngcrush schedtool libwxgtk2.8-dev gcc g++ cpp gcc-4.8 g++-4.8
+
+一切停当后,
+
+    sudo ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so.1 /usr/lib/i386-linux-gnu/libGL.so
+
+依赖搞定后, 准备装repo, 一个Google基于git开发的工具用来管理git repo. 在这里, 我们用他来下载Google的源码.
+
+    mkdir ~/bin && curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo && chmod a+x ~/bin/repo
+
+最后, 添加路径至.bashrc.
+
+    echo "export PATH=${PATH}:~/bin" >> ~/.bashrc
+
+然安安安后, 最激动人心也最无趣的部分. 获取FFFFUUUUUU的源码.
+
+下载FFFFUUUUUU源码
+-----------------
+
+我把代码就保存在/android/ffffuuuuuu/目录里. 但你自个儿爱咋地咋地 :P
+
+    mkdir -p ~/android/ffffuuuuuu && cd $_
+
+快把代码交出来!
+
+    repo init -u git@github.com:donghaomin/platform_manifest.git -b biantai-4.4.2_r2
+    repo sync -jN
+
+_两个注意点:_
+* 如果你还没有github账号 并且/或者 没有配置好SSH密匙. 你就得下嫁给https了. __在如上repo init命令中, 以及在repo init后下载的default.xml文件中都需修改__ 然后才能repo sync.
+* -jN, N是并行任务的数量, 主要看你的网速.
+
+在漫长的等待后, 最最激动人心也最最无趣的部分. COMPILING BABY!!!1111!!
+
+编译FFFFUUUUUU
+-------------
+
+事实上, 这一步挺弱的, 因为, 好吧...make太聪明了.
+
+    source build/envsetup.sh
+    lunch
+
+然后你会看到一个设备列表. 比如你想来一个flo的版本, 那么
+
+    14
+    make otapackage -jN
+
+在这里, N取决于你的电脑配置, 在你电脑的硬件线程数量的一倍到两倍之间.
+
+[可选] 使用ccache
+----------------
+
+ccache可以有助于(在第一次编译之后)减少编译时间.
+
+    echo "export USE_CCACHE=1" >> ~/.bashrc
+
+为ccache划出一块空间. 在这里, N是你想要分给ccache的GB数. (Google)建议50-100G.
+
+    ~/android/ffffuuuuuu/prebuilts/misc/linux-x86/ccache/ccache -M NG
+
+HAVE FUN
+--------
+
+<img src="https://raw.github.com/donghaomin/platform_manifest/biantai-4.4.2_r2/HAVE_FUN.png">
